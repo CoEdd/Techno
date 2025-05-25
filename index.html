@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VirtualCare - Multimedia Promotion</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes slideIn {
+            from { transform: translateX(100%); }
+            to { transform: translateX(0); }
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+        .slide-in {
+            animation: slideIn 0.5s ease-out forwards;
+        }
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+        .float-animation {
+            animation: float 3s ease-in-out infinite;
+        }
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 */
+            height: 0;
+            overflow: hidden;
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .promo-card {
+            transition: all 0.3s ease;
+        }
+        .promo-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .progress-bar {
+            height: 4px;
+            background: #3b82f6;
+            width: 0%;
+            transition: width 0.1s linear;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen font-sans">
+    <!-- Header -->
+    <header class="bg-white shadow-sm">
+        <div class="container mx-auto px-4 py-6 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <i class="fas fa-heartbeat text-3xl text-blue-600"></i>
+                <h1 class="text-2xl font-bold text-blue-800">VirtualCare Promotions</h1>
+            </div>
+            <nav>
+                <ul class="flex space-x-6">
+                    <li><a href="#" class="text-blue-600 hover:text-blue-800 font-medium">Home</a></li>
+                    <li><a href="#" class="text-gray-600 hover:text-blue-800 font-medium">About</a></li>
+                    <li><a href="#" class="text-gray-600 hover:text-blue-800 font-medium">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-12">
+        <h2 class="text-3xl md:text-4xl font-bold text-center text-blue-900 mb-4">Explore Our Digital Healthcare Solutions</h2>
+        <p class="text-lg text-gray-600 text-center mb-12 max-w-3xl mx-auto">Discover different ways to learn about our innovative digital doctor service through interactive multimedia presentations.</p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+            <!-- Text Description Button -->
+            <div class="bg-white rounded-xl p-6 shadow-md promo-card fade-in" style="animation-delay: 0.1s;">
+                <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mb-6 mx-auto">
+                    <i class="fas fa-align-left text-blue-600 text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-center text-blue-800 mb-4">Text Description</h3>
+                <p class="text-gray-600 text-center mb-6">Read a detailed description of our digital doctor service and its benefits.</p>
+                <button onclick="showTextDescription()" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-medium transition-all">
+                    View Text Description
+                </button>
+            </div>
+            
+            <!-- Motion Graphic Button -->
+            <div class="bg-white rounded-xl p-6 shadow-md promo-card fade-in" style="animation-delay: 0.2s;">
+                <div class="bg-indigo-100 w-16 h-16 rounded-full flex items-center justify-center mb-6 mx-auto">
+                    <i class="fas fa-film text-indigo-600 text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-center text-indigo-800 mb-4">Motion Graphic</h3>
+                <p class="text-gray-600 text-center mb-6">Watch an animated presentation of our digital healthcare solutions.</p>
+                <button onclick="showMotionGraphic()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-3 rounded-lg font-medium transition-all">
+                    Play Motion Graphic
+                </button>
+            </div>
+            
+            <!-- Video Button -->
+            <div class="bg-white rounded-xl p-6 shadow-md promo-card fade-in" style="animation-delay: 0.3s;">
+                <div class="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mb-6 mx-auto">
+                    <i class="fas fa-video text-purple-600 text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-center text-purple-800 mb-4">Promo Video</h3>
+                <p class="text-gray-600 text-center mb-6">View our professionally produced promotional video about VirtualCare.</p>
+                <button onclick="showPromoVideo()" class="w-full bg-purple-600 hover:bg-purple-700 text-white py-3 rounded-lg font-medium transition-all">
+                    Watch Promo Video
+                </button>
+            </div>
+        </div>
+        
+        <!-- Text Description Content -->
+        <div id="textDescriptionContent" class="hidden bg-white rounded-xl p-8 shadow-lg mb-12">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold text-blue-800">VirtualCare Digital Doctor Service</h3>
+                <button onclick="hideTextDescription()" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <div class="prose max-w-none">
+                <h4 class="text-xl font-semibold text-blue-700 mb-3">Revolutionizing Healthcare Access</h4>
+                <p class="mb-4 text-gray-700">VirtualCare is an innovative digital healthcare platform that provides immediate medical consultations through an AI-powered digital doctor. Our service eliminates the need for physical visits for common health concerns, making healthcare more accessible and convenient.</p>
+                
+                <h4 class="text-xl font-semibold text-blue-700 mb-3 mt-6">Key Features</h4>
+                <ul class="list-disc pl-6 mb-4 space-y-2 text-gray-700">
+                    <li><strong>24/7 Availability:</strong> Access medical advice anytime, anywhere</li>
+                    <li><strong>Symptom Analysis:</strong> Our AI evaluates your symptoms and provides guidance</li>
+                    <li><strong>Severity Detection:</strong> Automatically identifies urgent cases requiring immediate attention</li>
+                    <li><strong>Integrated Appointments:</strong> Seamlessly schedule follow-ups with specialists when needed</li>
+                    <li><strong>Secure Payments:</strong> Easy and safe payment processing for all healthcare services</li>
+                </ul>
+                
+                <h4 class="text-xl font-semibold text-blue-700 mb-3 mt-6">How It Works</h4>
+                <ol class="list-decimal pl-6 mb-4 space-y-2 text-gray-700">
+                    <li>Describe your symptoms to our digital doctor</li>
+                    <li>Receive immediate preliminary diagnosis and care recommendations</li>
+                    <li>For non-urgent cases, get treatment suggestions and home care advice</li>
+                    <li>For serious symptoms, be guided to schedule an appointment or seek emergency care</li>
+                    <li>Make secure payments for any recommended services or medications</li>
+                </ol>
+                
+                <h4 class="text-xl font-semibold text-blue-700 mb-3 mt-6">Benefits</h4>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <h5 class="font-bold text-blue-600 mb-2"><i class="fas fa-clock mr-2"></i>Time-Saving</h5>
+                        <p class="text-gray-700">No more waiting rooms or travel time - get care immediately from home or work.</p>
+                    </div>
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <h5 class="font-bold text-blue-600 mb-2"><i class="fas fa-lock mr-2"></i>Privacy</h5>
+                        <p class="text-gray-700">Discreet consultations for sensitive health issues without face-to-face interaction.</p>
+                    </div>
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <h5 class="font-bold text-blue-600 mb-2"><i class="fas fa-dollar-sign mr-2"></i>Cost-Effective</h5>
+                        <p class="text-gray-700">Reduces unnecessary doctor visits and associated costs.</p>
+                    </div>
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <h5 class="font-bold text-blue-600 mb-2"><i class="fas fa-chart-line mr-2"></i>Health Tracking</h5>
+                        <p class="text-gray-700">Maintains records of your consultations and symptoms over time.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Motion Graphic Content -->
+        <div id="motionGraphicContent" class="hidden bg-white rounded-xl shadow-lg mb-12 overflow-hidden">
+            <div class="flex justify-between items-center bg-indigo-600 text-white p-4">
+                <h3 class="text-xl font-bold">VirtualCare Motion Graphic</h3>
+                <button onclick="hideMotionGraphic()" class="text-white hover:text-indigo-200">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="p-4 bg-gray-100">
+                <div class="flex justify-center items-center mb-4">
+                    <!-- Remove Restart button and progress bar -->
+                </div>
+            </div>
+            <div id="animationContainer" class="p-8 flex justify-center items-center">
+                <video loop autoplay muted playsinline width="640" height="360" class="rounded-xl shadow-lg object-cover">
+                    <source src="Our Mobile_1.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        </div>
+        
+        <!-- Video Content -->
+        <div id="videoContent" class="hidden bg-white rounded-xl shadow-lg mb-12 overflow-hidden">
+            <div class="flex justify-between items-center bg-purple-600 text-white p-4">
+                <h3 class="text-xl font-bold">VirtualCare Promotional Video</h3>
+                <button onclick="hidePromoVideo()" class="text-white hover:text-purple-200">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="video-container">
+                <!-- Placeholder for video - in a real scenario, you would embed your actual video -->
+                <div class="flex items-center justify-center h-full bg-gray-200">
+                    <div class="text-center p-8">
+                        <i class="fas fa-video text-5xl text-gray-400 mb-4"></i>
+                        <h4 class="text-xl font-bold text-gray-600 mb-2">Promotional Video</h4>
+                        <p class="text-gray-500">In a real implementation, this would be your embedded promotional video from YouTube, Vimeo, or another hosting service.</p>
+                        <div class="mt-6 bg-purple-600 text-white inline-block px-6 py-2 rounded-lg">
+                            <i class="fas fa-play mr-2"></i> Play Video
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="p-6">
+                <h4 class="text-lg font-bold text-gray-800 mb-2">About This Video</h4>
+                <p class="text-gray-600">Our promotional video showcases the key features and benefits of VirtualCare, demonstrating how our digital doctor service works and how it can transform your healthcare experience.</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-blue-900 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">VirtualCare</h3>
+                    <p class="text-blue-200">Your trusted digital healthcare partner providing accessible medical services anytime, anywhere.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-blue-200 hover:text-white">Home</a></li>
+                        <li><a href="#" class="text-blue-200 hover:text-white">Services</a></li>
+                        <li><a href="#" class="text-blue-200 hover:text-white">About Us</a></li>
+                        <li><a href="#" class="text-blue-200 hover:text-white">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Connect With Us</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-blue-200 hover:text-white text-xl"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="text-blue-200 hover:text-white text-xl"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-blue-200 hover:text-white text-xl"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-blue-200 hover:text-white text-xl"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-blue-800 mt-8 pt-8 text-center text-blue-200">
+                <p>&copy; 2023 VirtualCare. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Show/hide content functions
+        function showTextDescription() {
+            document.getElementById('textDescriptionContent').classList.remove('hidden');
+            document.getElementById('motionGraphicContent').classList.add('hidden');
+            document.getElementById('videoContent').classList.add('hidden');
+        }
+        
+        function hideTextDescription() {
+            document.getElementById('textDescriptionContent').classList.add('hidden');
+        }
+        
+        function showMotionGraphic() {
+            document.getElementById('motionGraphicContent').classList.remove('hidden');
+            document.getElementById('textDescriptionContent').classList.add('hidden');
+            document.getElementById('videoContent').classList.add('hidden');
+            // No animation to start
+        }
+
+        function hideMotionGraphic() {
+            document.getElementById('motionGraphicContent').classList.add('hidden');
+            // No animation to stop
+        }
+        
+        function showPromoVideo() {
+            document.getElementById('videoContent').classList.remove('hidden');
+            document.getElementById('textDescriptionContent').classList.add('hidden');
+            document.getElementById('motionGraphicContent').classList.add('hidden');
+        }
+        
+        function hidePromoVideo() {
+            document.getElementById('videoContent').classList.add('hidden');
+        }
+        
+        // Animation functions for motion graphic
+        let animationInterval;
+        let animationStep = 0;
+        const totalSteps = 100;
+        
+        function startAnimation() {
+            const container = document.getElementById('animationContainer');
+            container.innerHTML = '';
+            
+            // Reset progress
+            animationStep = 0;
+            document.getElementById('animationProgress').style.width = '0%';
+            
+            // Create animation elements
+            const doctorImg = document.createElement('img');
+            doctorImg.src = 'https://img.freepik.com/free-vector/doctor-character-avatar-isolated_24877-60194.jpg';
+            doctorImg.className = 'w-32 h-32 rounded-full border-4 border-white shadow-lg float-animation';
+            doctorImg.style.position = 'absolute';
+            doctorImg.style.left = '50%';
+            doctorImg.style.transform = 'translateX(-50%)';
+            container.appendChild(doctorImg);
+            
+            const phoneImg = document.createElement('div');
+            phoneImg.className = 'w-64 h-96 bg-gray-800 rounded-3xl mx-auto relative overflow-hidden';
+            phoneImg.style.border = '8px solid #111';
+            container.appendChild(phoneImg);
+            
+            const screen = document.createElement('div');
+            screen.className = 'h-full bg-blue-50 p-4';
+            phoneImg.appendChild(screen);
+            
+            // Start animation
+            animationInterval = setInterval(() => {
+                animationStep++;
+                const progress = (animationStep / totalSteps) * 100;
+                document.getElementById('animationProgress').style.width = `${progress}%`;
+                
+                // Update animation based on progress
+                if (animationStep <= 20) {
+                    // Initial state - doctor introduction
+                    screen.innerHTML = `
+                        <div class="bg-blue-100 rounded-lg p-4 mb-4">
+                            <p>Hello! I'm your VirtualCare digital doctor.</p>
+                        </div>
+                        <div class="bg-blue-100 rounded-lg p-4">
+                            <p>How can I help you today?</p>
+                        </div>
+                    `;
+                } else if (animationStep <= 40) {
+                    // Symptom description
+                    screen.innerHTML = `
+                        <div class="bg-gray-200 rounded-lg p-4 ml-auto mb-4 w-3/4">
+                            <p>I have a headache and fever</p>
+                        </div>
+                        <div class="typing-indicator flex space-x-1 bg-blue-100 rounded-lg p-4 w-24">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    `;
+                } else if (animationStep <= 60) {
+                    // Doctor response
+                    screen.innerHTML = `
+                        <div class="bg-blue-100 rounded-lg p-4 mb-4">
+                            <p>I understand. How long have you had these symptoms?</p>
+                        </div>
+                    `;
+                } else if (animationStep <= 80) {
+                    // User response
+                    screen.innerHTML = `
+                        <div class="bg-gray-200 rounded-lg p-4 ml-auto mb-4 w-3/4">
+                            <p>About 2 days</p>
+                        </div>
+                        <div class="typing-indicator flex space-x-1 bg-blue-100 rounded-lg p-4 w-24">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    `;
+                } else {
+                    // Final recommendation
+                    screen.innerHTML = `
+                        <div class="bg-blue-100 rounded-lg p-4 mb-4">
+                            <p>Based on your symptoms, I recommend rest and hydration.</p>
+                        </div>
+                        <div class="bg-blue-100 rounded-lg p-4">
+                            <p>If symptoms persist, you can easily schedule an appointment.</p>
+                        </div>
+                        <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-lg">Schedule Appointment</button>
+                    `;
+                }
+                
+                if (animationStep >= totalSteps) {
+                    clearInterval(animationInterval);
+                }
+            }, 100);
+        }
+        
+        function stopAnimation() {
+            clearInterval(animationInterval);
+        }
+        
+        function restartAnimation() {
+            stopAnimation();
+            startAnimation();
+        }
+    </script>
+</body>
+</html>
