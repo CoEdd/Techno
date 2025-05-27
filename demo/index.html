@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VirtualCare - Digital Doctor</title>
+    <script src="https://cdn.tailwindcss.com "></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css ">
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes slideIn {
+            from { transform: translateX(100%); }
+            to { transform: translateX(0); }
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+        .slide-in {
+            animation: slideIn 0.5s ease-out forwards;
+        }
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+        .float-animation {
+            animation: float 3s ease-in-out infinite;
+        }
+        .progress-bar {
+            height: 4px;
+            background: #3b82f6;
+            width: 0%;
+            transition: width 0.1s linear;
+        }
+        .step {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        .step.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen font-sans">
+    <!-- Header -->
+    <header class="bg-white shadow-sm">
+        <div class="container mx-auto px-4 py-6 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <i class="fas fa-heartbeat text-3xl text-blue-600"></i>
+                <h1 class="text-2xl font-bold text-blue-800">VirtualCare Digital Doctor</h1>
+            </div>
+            <nav>
+                <ul class="flex space-x-6">
+                    <li><a href="#" class="text-blue-600 hover:text-blue-800 font-medium">Home</a></li>
+                    <li><a href="#" class="text-gray-600 hover:text-blue-800 font-medium">About</a></li>
+                    <li><a href="#" class="text-gray-600 hover:text-blue-800 font-medium">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-12">
+        <div id="app">
+            <!-- Step 1: Home -->
+            <div class="step active" id="home">
+                <h2 class="text-3xl font-bold text-center text-blue-900 mb-4">Welcome to VirtualCare</h2>
+                <p class="text-lg text-gray-600 text-center mb-12 max-w-3xl mx-auto">Get immediate preliminary diagnosis and care recommendations.</p>
+                <button onclick="navigateTo('symptoms')" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-medium transition-all">
+                    Start
+                </button>
+            </div>
+            
+            <!-- Step 2: Symptom Description -->
+            <div class="step" id="symptoms">
+                <h2 class="text-3xl font-bold text-center text-blue-900 mb-4">Describe Your Symptoms</h2>
+                <form id="symptomForm">
+                    <textarea name="symptoms" placeholder="Type your symptoms here..." class="w-full p-4 mb-6 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                    <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-medium transition-all">
+                        Submit
+                    </button>
+                </form>
+            </div>
+            
+            <!-- Step 3: Preliminary Diagnosis -->
+            <div class="step" id="diagnosis">
+                <h2 class="text-3xl font-bold text-center text-blue-900 mb-4">Preliminary Diagnosis</h2>
+                <p id="diagnosisResult" class="text-lg text-gray-600 text-center mb-12 max-w-3xl mx-auto">Loading...</p>
+                <button onclick="navigateTo('treatment')" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-medium transition-all">
+                    Next
+                </button>
+            </div>
+            
+            <!-- Step 4: Treatment Suggestions -->
+            <div class="step" id="treatment">
+                <h2 class="text-3xl font-bold text-center text-blue-900 mb-4">Treatment Suggestions</h2>
+                <p id="treatmentResult" class="text-lg text-gray-600 text-center mb-12 max-w-3xl mx-auto">Loading...</p>
+                <button onclick="navigateTo('payment')" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-medium transition-all">
+                    Proceed to Payment
+                </button>
+            </div>
+            
+            <!-- Step 5: Emergency Guidance -->
+            <div class="step" id="emergency">
+                <h2 class="text-3xl font-bold text-center text-red-900 mb-4">Emergency Guidance</h2>
+                <p class="text-lg text-red-600 text-center mb-12 max-w-3xl mx-auto">Please seek immediate medical attention.</p>
+                <button onclick="navigateTo('home')" class="w-full bg-red-600 hover:bg-red-700 text-white py-3 rounded-lg font-medium transition-all">
+                    Back to Home
+                </button>
+            </div>
+            
+            <!-- Step 6: Payment -->
+            <div class="step" id="payment">
+                <h2 class="text-3xl font-bold text-center text-blue-900 mb-4">Payment</h2>
+                <p class="text-lg text-gray-600 text-center mb-12 max-w-3xl mx-auto">Select a payment method:</p>
+                <button class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-medium transition-all">
+                    Pay Now
+                </button>
+            </div>
+        </div>
+    </main>
+    <!-- Footer -->
+    <footer class="bg-blue-900 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">VirtualCare</h3>
+                    <p class="text-blue-200">Your trusted digital healthcare partner providing accessible medical services anytime, anywhere.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-blue-200 hover:text-white">Home</a></li>
+                        <li><a href="#" class="text-blue-200 hover:text-white">Services</a></li>
+                        <li><a href="#" class="text-blue-200 hover:text-white">About Us</a></li>
+                        <li><a href="#" class="text-blue-200 hover:text-white">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Connect With Us</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-blue-200 hover:text-white text-xl"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="text-blue-200 hover:text-white text-xl"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-blue-200 hover:text-white text-xl"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-blue-200 hover:text-white text-xl"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-blue-800 mt-8 pt-8 text-center text-blue-200">
+                <p>&copy; 2023 VirtualCare. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <script>
+        document.getElementById('symptomForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const symptoms = document.querySelector('textarea[name="symptoms"]').value;
+            // Simulate diagnosis based on symptoms
+            const diagnosisResult = simulateDiagnosis(symptoms);
+            document.getElementById('diagnosisResult').innerText = diagnosisResult;
+            // Determine next step based on diagnosis
+            if (diagnosisResult.includes("Seek emergency care")) {
+                navigateTo('emergency');
+            } else {
+                navigateTo('diagnosis');
+                setTimeout(() => {
+                    const treatmentResult = simulateTreatment(symptoms);
+                    document.getElementById('treatmentResult').innerText = treatmentResult;
+                }, 500);
+            }
+        });
+
+        function simulateDiagnosis(symptoms) {
+            // Simple simulation logic
+            if (symptoms.toLowerCase().includes('severe chest pain')) {
+                return "Severe chest pain. Seek emergency care immediately.";
+            } else if (symptoms.toLowerCase().includes('fever')) {
+                return "Possible flu. Consider rest and over-the-counter medication.";
+            } else {
+                return "No specific diagnosis. Consult a doctor for further evaluation.";
+            }
+        }
+
+        function simulateTreatment(symptoms) {
+            // Simple simulation logic
+            if (symptoms.toLowerCase().includes('fever')) {
+                return "Take ibuprofen and rest at home.";
+            } else {
+                return "Follow up with a specialist for further evaluation.";
+            }
+        }
+
+        function navigateTo(stepId) {
+            const currentStep = document.querySelector('.step.active');
+            if (currentStep) {
+                currentStep.classList.remove('active');
+            }
+            const nextStep = document.getElementById(stepId);
+            nextStep.classList.add('active');
+        }
+
+        // Initial setup
+        document.getElementById('home').classList.add('active');
+    </script>
+</body>
+</html>
